@@ -1,31 +1,67 @@
+# Delete old data
+User.delete_all
+Review.delete_all
+Product.delete_all
 
 # Create instances of the classes and test the methods
+
+
 user1 = User.create(name: "Ahmed Ali")
-user2 = User.create(name: "Jammy Smith")
+user2 = User.create(name: "Jimmy Smith")
+user3 = User.create(name: "John Mwangi")
+user4 = User.create(name: "Abdi Moha")
+user5 = User.create(name: "Salah Osman")
 
-product1 = Product.create(name: "Product 1")
-product2 = Product.create(name: "Product 2")
+chocolateBar = Product.create(name: "Chocolate Bar")
+gummyBears = Product.create(name: "Gummy Bears")
+lolipop = Product.create(name: "Lolipop")
+mrberry = Product.create(name: "Mr Berry")
+coolcow = Product.create(name: "Coolcow")
 
-review1 = Review.create(user: user1, product: product1, star_rating: 4, comment: "Great product!")
-review2 = Review.create(user: user2, product: product1, star_rating: 3, comment: "Good but could be better")
-review3 = Review.create(user: user1, product: product2, star_rating: 5, comment: "Awesome product!")
-review4 = Review.create(user: user2, product: product2, star_rating: 2, comment: "Disappointing")
+review1 = Review.create(user: user1, product: chocolateBar, star_rating: 4, comment: "Great product!")
+review2 = Review.create(user: user2, product: chocolateBar, star_rating: 3, comment: "Good but could be better")
+review3 = Review.create(user: user1, product: gummyBears, star_rating: 5, comment: "Awesome product!")
+review4 = Review.create(user: user2, product: gummyBears, star_rating: 2, comment: "Disappointing")
 
-# Test the methods
-puts review1.user == user1
-puts review1.product == product1
+# Define the methods
+def print_all_users
+  User.all.map do |user|
+    "Name: #{user.name}"
+  end
+end
 
-puts product1.reviews == [review1, review2]
-puts product1.users == [user1, user2]
+def print_all_products
+  Product.all.map do |product|
+    "Name: #{product.name}"
+  end
+end
 
-puts user1.reviews == [review1, review3]
-puts user1.products == [product1, product2]
+def print_all_reviews
+  Review.all.map do |review|
+    "User: #{review.user.name}, Product: #{review.product.name}, Comment: #{review.comment}, Rating: #{review.star_rating}"
+  end
+end
 
-puts product1.average_rating == 3.5
+# Call the methods and display the output
+puts "Testing..."
+puts ""
 
-product1.leave_review(user2, 5, "Excellent product!")
-puts product1.average_rating == 4
+puts "All Users:"
+puts print_all_users
+puts ""
 
-user1.remove_reviews(product2)
-puts user1.reviews == [review1]
-puts product2.reviews == [review2]
+puts "All Products:"
+puts print_all_products
+puts ""
+
+puts "All Reviews:"
+puts print_all_reviews
+puts ""
+
+puts "#{review1.user.name} has bought #{review1.product.name} and has rated it #{review1.star_rating} - #{review1.comment}"
+puts ""
+
+puts "#{review2.user.name} has bought #{review2.product.name} and has rated it #{review2.star_rating} - #{review2.comment}"
+puts ""
+
+puts "Test ended!"
